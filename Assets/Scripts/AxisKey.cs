@@ -5,7 +5,6 @@ using UnityEngine;
 /**
  * Input.GetKey() で Input.GetAxisRaw() のような仮想軸の値を返す。
  * -1, 0, 1 のみで中間の値はない。
- * 2015/3/12 Fantom
  */
 public class AxisKey
 {

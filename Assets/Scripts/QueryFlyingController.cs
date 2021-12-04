@@ -6,7 +6,6 @@ namespace QueryChan
 {
     /**
      * クエリちゃん用 飛行コントローラ
-     * 2015/3/12 Fantom
      */
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(QueryMechanimController))]
