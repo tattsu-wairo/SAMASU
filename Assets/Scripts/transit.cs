@@ -20,8 +20,8 @@ public class transit : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        GameObject playername = GameObject.Find("Query-ChanHalloween");
-        ScoreManager score=playername.GetComponent<ScoreManager>();
+        GameObject scoreObj = GameObject.Find("Game");
+        ScoreManager score=scoreObj.GetComponent<ScoreManager>();
         Debug.Log(score.GetNumber());
         if(number==score.GetNumber()){
             int newScore=score.GetScore()+100;

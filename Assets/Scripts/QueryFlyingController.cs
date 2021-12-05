@@ -116,6 +116,9 @@ namespace QueryChan
         /** ステートによって表情や手も変更する ON/OFF */
         public bool useEmotionAndHandChange = true;
 
+        /** 加速状態か*/
+        public bool isAcceleration = false;
+
         //------------------------------------------------//
 
         // Use this for initialization
@@ -129,7 +132,7 @@ namespace QueryChan
             queryMechanim.ChangeAnimation(QueryMechanimController.QueryChanAnimationType.FLY_IDLE, false);
 
             AnimatorStateInfo animatorInfo = animator.GetCurrentAnimatorStateInfo(0);    //BaseLayer
-            currentState = animatorInfo.nameHash;
+            currentState = animatorInfo.fullPathHash;
             oldState = currentState;
 
             //キーを設定
@@ -144,12 +147,18 @@ namespace QueryChan
         void Update()
         {
             //入力による移動処理
-
             bool accel = useAccelKey && Input.GetKey(accelKey);
             bool brake = useBrakeKey && Input.GetKey(brakeKey);
 
-            forwardSpeed += (accel ? accelerarion : 0f) + (brake ? -accelerarion : 0f);
-            forwardSpeed = Mathf.Clamp(forwardSpeed, speedMin, speedMax);
+            if (isAcceleration)
+            {
+                forwardSpeed = speedMax + 10f;
+            }
+            else
+            {
+                forwardSpeed += (accel ? accelerarion : 0f) + (brake ? -accelerarion : 0f);
+                forwardSpeed = Mathf.Clamp(forwardSpeed, speedMin, speedMax);
+            }
 
             float h = horizontalKey.GetAxis();
             float v = verticalKey.GetAxis();
@@ -169,18 +178,16 @@ namespace QueryChan
 
             //------------------------------------------------//
             //Animator
-
             animator.SetFloat("Speed", forwardSpeed);
             animator.SetFloat("Horizontal", h);
             animator.SetFloat("Vertical", v);
 
             //------------------------------------------------//
             //ステートによって表情や手を変更する
-
             if (useEmotionAndHandChange)
             {
                 AnimatorStateInfo animatorInfo = animator.GetCurrentAnimatorStateInfo(0);    //BaseLayer
-                currentState = animatorInfo.nameHash;
+                currentState = animatorInfo.fullPathHash;
                 if (oldState != currentState)
                 {
                     oldState = currentState;
@@ -195,6 +202,13 @@ namespace QueryChan
                     }
                 }
             }
+        }
+        public IEnumerator Acceleration()
+        {
+            isAcceleration = true;//★加速フラグがtrueになる
+            Debug.Log(true);
+            yield return new WaitForSeconds(4);
+            isAcceleration = false;
         }
     }
 }

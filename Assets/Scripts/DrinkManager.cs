@@ -21,12 +21,16 @@ public class DrinkManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        audioSource.PlayOneShot(sound_drink);
-        GameObject playername = GameObject.Find("Query-ChanHalloween");
-        ScoreManager score=playername.GetComponent<ScoreManager>();
+        GameObject player = other.gameObject;
+        QueryChan.QueryFlyingController Qcontroller = player.GetComponent<QueryChan.QueryFlyingController>();
+        Qcontroller.StartCoroutine(Qcontroller.Acceleration());
+
+        GameObject gameObj=GameObject.Find("Game");
+        ScoreManager score=gameObj.GetComponent<ScoreManager>();
+        StaminaManager stamina=gameObj.GetComponent<StaminaManager>();
+        stamina.SetStamina(stamina.GetStamina()+40);
         int newScore=score.GetScore()+drink_score;
         score.SetScore(newScore);
         transform.gameObject.SetActive(false);
-        Debug.Log(score.GetScore());
     }
 }
