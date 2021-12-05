@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class transit : MonoBehaviour
 {
+    
     [SerializeField]int number;
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -26,6 +27,7 @@ public class transit : MonoBehaviour
             int newScore=score.GetScore()+100;
             score.SetScore(newScore);
             score.NextNumber();
+            Debug.Log(score.GetScore());
             transform.parent.gameObject.SetActive(false);
         }
         

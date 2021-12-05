@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class DrinkManager : MonoBehaviour
 {
-    int number=0;
+    [SerializeField]public AudioClip sound_drink;
+    AudioSource audioSource;
+    int drink_score=50;
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -19,10 +21,12 @@ public class DrinkManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        audioSource.PlayOneShot(sound_drink);
         GameObject playername = GameObject.Find("Query-ChanHalloween");
         ScoreManager score=playername.GetComponent<ScoreManager>();
-        int newScore=score.GetScore()+100;
+        int newScore=score.GetScore()+drink_score;
         score.SetScore(newScore);
         transform.gameObject.SetActive(false);
+        Debug.Log(score.GetScore());
     }
 }
