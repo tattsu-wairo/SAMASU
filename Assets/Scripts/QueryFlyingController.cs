@@ -210,5 +210,12 @@ namespace QueryChan
             yield return new WaitForSeconds(4);
             isAcceleration = false;
         }
+
+        public float GetSpeed(){
+            return forwardSpeed;
+        }
+        public bool IsAcceleration(){
+            return isAcceleration;
+        }
     }
 }
