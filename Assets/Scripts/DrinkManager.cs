@@ -28,7 +28,7 @@ public class DrinkManager : MonoBehaviour
         GameObject gameObj=GameObject.Find("Game");
         ScoreManager score=gameObj.GetComponent<ScoreManager>();
         StaminaManager stamina=gameObj.GetComponent<StaminaManager>();
-        stamina.SetStamina(stamina.GetStamina()+40);
+        stamina.SetStamina(stamina.GetStamina()-40);
         int newScore=score.GetScore()+drink_score;
         score.SetScore(newScore);
         transform.gameObject.SetActive(false);
